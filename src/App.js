@@ -6,6 +6,7 @@ import { Nav, Navbar, NavItem } from 'react-bootstrap';
 
 import Routes from './Routes';
 import { AppContext } from './libs/contextLib';
+import { onError } from './libs/errorLib';
 
 import './App.css';
 
@@ -26,7 +27,7 @@ function App() {
       history.push('/');
     } catch (e) {
       if (e !== 'No current user') {
-        alert(e);
+        onError(e);
       }
     }
 
