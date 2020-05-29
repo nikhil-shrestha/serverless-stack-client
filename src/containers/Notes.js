@@ -91,6 +91,9 @@ export default function Notes() {
       setIsLoading(false);
     }
   }
+  function deleteNote() {
+    return API.del('notes', `/notes/${id}`);
+  }
 
   async function handleDelete(event) {
     event.preventDefault();
@@ -104,6 +107,14 @@ export default function Notes() {
     }
 
     setIsDeleting(true);
+
+    try {
+      await deleteNote();
+      history.push('/');
+    } catch (e) {
+      onError(e);
+      setIsDeleting(false);
+    }
   }
 
   return (
