@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { API } from 'aws-amplify';
 import { useHistory } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 
@@ -35,6 +36,20 @@ export default function NewNote() {
     }
 
     setIsLoading(true);
+
+    try {
+      await createNote({ content });
+      history.push('/');
+    } catch (e) {
+      onError(e);
+      setIsLoading(false);
+    }
+  }
+
+  function createNote(note) {
+    return API.post('notes', '/notes', {
+      body: note,
+    });
   }
 
   return (
