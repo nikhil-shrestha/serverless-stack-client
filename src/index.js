@@ -5,6 +5,7 @@ import { Amplify } from 'aws-amplify';
 import * as serviceWorker from './serviceWorker';
 
 import App from './App';
+import { initSentry } from './libs/errorLib';
 import config from './config';
 
 import './index.css';
@@ -32,6 +33,8 @@ Amplify.configure({
     ],
   },
 });
+
+initSentry();
 
 ReactDOM.render(
   <React.StrictMode>
