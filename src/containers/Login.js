@@ -5,18 +5,21 @@ import { Form } from 'react-bootstrap';
 
 import LoaderButton from '../components/LoaderButton';
 import { useAppContext } from '../libs/contextLib';
+import { useFormFields } from '../libs/hooksLib';
 import { onError } from '../libs/errorLib';
 
 import './Login.css';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { userHasAuthenticated } = useAppContext();
-
   const history = useHistory();
+  const { userHasAuthenticated } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const [fields, handleFieldChange] = useFormFields({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = fields;
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -46,14 +49,14 @@ export default function Login() {
             autoFocus
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleFieldChange}
           />
         </Form.Group>
         <Form.Group controlId="password" bsSize="large">
           <Form.Label>Password</Form.Label>
           <Form.Control
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleFieldChange}
             type="password"
           />
         </Form.Group>
