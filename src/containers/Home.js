@@ -42,8 +42,7 @@ export default function Home() {
         <LinkContainer key={note.noteId} to={`/notes/${note.noteId}`}>
           <ListGroup.Item as="li">
             <b>{note.content.trim().split('\n')[0]}</b>
-            <br />
-            {'Created: ' + new Date(note.createdAt).toLocaleString()}
+            <p>{'Created: ' + new Date(note.createdAt).toLocaleString()}</p>
           </ListGroup.Item>
         </LinkContainer>
       ) : (
