@@ -7,6 +7,7 @@ import Signup from './containers/Signup';
 import NotFound from './containers/NotFound';
 import NewNote from './containers/NewNote';
 import Notes from './containers/Notes';
+import Settings from './containers/Settings';
 
 export default function Routes() {
   return (
@@ -16,6 +17,7 @@ export default function Routes() {
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/notes/new" component={NewNote} />
       <Route exact path="/notes/:id" component={Notes} />
+      <Route exact path="/settings" component={Settings} />
 
       {/* Finally, catch all unmatched routes */}
       <Route>
