@@ -100,7 +100,7 @@ export default function Signup() {
   function renderForm() {
     return (
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="email" bsSize="large">
+        <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
             autoFocus
@@ -109,7 +109,7 @@ export default function Signup() {
             onChange={handleFieldChange}
           />
         </Form.Group>
-        <Form.Group controlId="password" bsSize="large">
+        <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -128,7 +128,7 @@ export default function Signup() {
         <LoaderButton
           block
           type="submit"
-          bsSize="large"
+          size="lg"
           isLoading={isLoading}
           disabled={!validateForm()}
         >
