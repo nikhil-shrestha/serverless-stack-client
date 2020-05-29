@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { Button, Form } from 'react-bootstrap';
 
@@ -12,6 +13,8 @@ export default function Login() {
 
   const { userHasAuthenticated } = useAppContext();
 
+  const history = useHistory();
+
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
@@ -22,6 +25,7 @@ export default function Login() {
     try {
       await Auth.signIn(email, password);
       userHasAuthenticated(true);
+      history.push('/');
     } catch (e) {
       alert(e.message);
     }
