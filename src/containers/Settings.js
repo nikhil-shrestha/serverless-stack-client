@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { API } from 'aws-amplify';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+
+import BillingForm from '../components/BillingForm';
 import { onError } from '../libs/errorLib';
 import config from '../config';
+
+import './Settings.css';
 
 export default function Settings() {
   const history = useHistory();
@@ -18,6 +23,35 @@ export default function Settings() {
       body: details,
     });
   }
+  async function handleFormSubmit(storage, { token, error }) {
+    if (error) {
+      onError(error);
+      return;
+    }
 
-  return <div className="Settings"></div>;
+    setIsLoading(true);
+
+    try {
+      await billUser({
+        storage,
+        source: token.id,
+      });
+
+      alert('Your card has been charged successfully!');
+      history.push('/');
+    } catch (e) {
+      onError(e);
+      setIsLoading(false);
+    }
+  }
+
+  return (
+    <div className="Settings">
+      <StripeProvider stripe={stripe}>
+        <Elements>
+          <BillingForm isLoading={isLoading} onSubmit={handleFormSubmit} />
+        </Elements>
+      </StripeProvider>
+    </div>
+  );
 }
